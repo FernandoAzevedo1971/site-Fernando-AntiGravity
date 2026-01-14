@@ -37,7 +37,7 @@
                 <a href="#sobre" class="nav-link">Sobre</a>
                 <a href="#servicos" class="nav-link">Áreas de Atuação</a>
                 <a href="#contato" class="nav-link">Contato</a>
-                <a href="#contato" class="btn btn-primary">Agendar Consulta</a>
+                <a href="https://wa.me/5521993901377" target="_blank" class="btn btn-primary">Agendar Consulta</a>
             </nav>
             <button class="mobile-menu-btn" aria-label="Menu">
                 <i class="fas fa-bars"></i>
@@ -47,21 +47,18 @@
 
     <!-- Hero Section -->
     <section id="inicio" class="hero">
-        <div class="hero-overlay"></div>
+        <div class="video-container">
+            <div class="video-overlay"></div>
+            <video autoplay muted loop playsinline class="hero-video" poster="./assets/hero_poster.png">
+                <source src="./assets/hero_bg.mp4" type="video/mp4">
+            </video>
+        </div>
         <div class="container hero-content">
             <div class="hero-logo-large">
                 <img src="./assets/logo_2.png" alt="Dr. Fernando Azevedo">
             </div>
             <h1 class="hero-title">Respire melhor, Durma melhor, viva com mais qualidade.</h1>
             <p class="hero-subtitle">Cuidado especializado em Pneumologia e Medicina do Sono.</p>
-        </div>
-    </section>
-
-    <!-- CTA Strip -->
-    <section class="cta-strip">
-        <div class="container cta-content">
-            <h2>Cuide da sua saúde respiratória hoje mesmo.</h2>
-            <a href="#contato" class="btn btn-secondary">Agendar Agora</a>
         </div>
     </section>
 
@@ -76,16 +73,28 @@
                 <i class="fas fa-bed service-icon"></i>
                 <h3>Medicina do Sono</h3>
             </div>
-            <div class="service-item">
-                <i class="fas fa-stethoscope service-icon"></i>
-                <h3>Check-up Respiratório</h3>
-            </div>
+            <a href="polissonografia.html" class="service-item-link">
+                <div class="service-item">
+                    <i class="fas fa-heartbeat service-icon"></i>
+                    <h3>Polissonografia tipo 3</h3>
+                </div>
+            </a>
             <div class="service-item">
                 <i class="fas fa-user-md service-icon"></i>
                 <h3>Acompanhamento</h3>
             </div>
         </div>
     </section>
+
+    <!-- CTA Strip -->
+    <section class="cta-strip">
+        <div class="container cta-content">
+            <h2>Cuide da sua saúde respiratória hoje mesmo.</h2>
+            <a href="#contato" class="btn btn-secondary">Agendar Agora</a>
+        </div>
+    </section>
+
+
 
     <!-- About Section -->
     <section id="sobre" class="about-section">
