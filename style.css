@@ -171,8 +171,9 @@ h4 {
 /* Hero Section */
 .hero {
     position: relative;
-    height: 90vh;
-    min-height: 600px;
+    height: auto;
+    min-height: auto;
+    padding: 60px 0;
     display: flex;
     align-items: center;
     justify-content: center;
