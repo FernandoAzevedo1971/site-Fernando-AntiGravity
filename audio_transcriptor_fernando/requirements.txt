@@ -1,0 +1,7 @@
+deepgram-sdk
+watchdog
+customtkinter
+python-dotenv
+packaging
+pyperclip
+requests
