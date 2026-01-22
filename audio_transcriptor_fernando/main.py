@@ -11,25 +11,32 @@ import pyperclip
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
+from tkinterdnd2 import TkinterDnD, DND_FILES
+
 from deepgram import (
     DeepgramClient,
-    PrerecordedOptions,
-    FileSource,
 )
 
 # Load environment variables
 load_dotenv()
+print("DEBUG: Environment loaded")
 
 # Configuration
 WATCH_DIRECTORY = r"C:\Users\ferna\OneDrive\Documentos\Gravacoes Som Audio Recorder Free"
+print(f"DEBUG: Watch directory: {WATCH_DIRECTORY}")
+
 # Fallback if directory doesn't exist (for testing)
 if not os.path.exists(WATCH_DIRECTORY):
     print(f"Warning: Directory {WATCH_DIRECTORY} does not exist. Please check the path.")
-    # You might want to create it or prompt the user, but for now we warn.
 
 DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
 
-class TranscriptionApp(ctk.CTk):
+class Tk(ctk.CTk, TkinterDnD.DnDWrapper):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.TkdndVersion = TkinterDnD._require(self)
+
+class TranscriptionApp(Tk):
     def __init__(self):
         super().__init__()
 
@@ -47,7 +54,7 @@ class TranscriptionApp(ctk.CTk):
         self.title_label = ctk.CTkLabel(self.header_frame, text="Monitor de Transcrição", font=ctk.CTkFont(size=20, weight="bold"))
         self.title_label.pack(side="left", padx=10, pady=10)
 
-        self.status_label = ctk.CTkLabel(self.header_frame, text="Aguardando arquivos...", text_color="gray")
+        self.status_label = ctk.CTkLabel(self.header_frame, text="Arraste arquivos aqui ou aguarde...", text_color="gray")
         self.status_label.pack(side="right", padx=10, pady=10)
 
         # Main Text Area
@@ -68,7 +75,14 @@ class TranscriptionApp(ctk.CTk):
 
         # Queue for thread communication
         self.queue = queue.Queue()
+
+        # Drag and Drop Setup
+        self.drop_target_register(DND_FILES)
+        self.dnd_bind('<<Drop>>', self.on_drop)
         
+        # Deepgram Client
+        self.deepgram = DeepgramClient(api_key=DEEPGRAM_API_KEY)
+
         # Start checking queue
         self.after(100, self.check_queue)
 
@@ -84,19 +98,68 @@ class TranscriptionApp(ctk.CTk):
              self.update_status(f"ERRO: Pasta não encontrada: {WATCH_DIRECTORY}", error=True)
              return
 
-        self.event_handler = AudioFileHandler(self.queue)
+        self.event_handler = AudioFileHandler(self.queue, self.process_file_thread)
         self.observer = Observer()
         self.observer.schedule(self.event_handler, WATCH_DIRECTORY, recursive=False)
         self.observer_thread = threading.Thread(target=self.observer.start)
-        self.observer_thread.daemon = True # Daemon thread exits when main app exits
+        self.observer_thread.daemon = True 
         self.observer_thread.start()
         
         self.update_status(f"Monitorando: {WATCH_DIRECTORY}")
 
+    def on_drop(self, event):
+        filepath = event.data
+        # Handle curly braces if path has spaces (tkinter behavior)
+        if filepath.startswith('{') and filepath.endswith('}'):
+            filepath = filepath[1:-1]
+            
+        print(f"DEBUG: File dropped: {filepath}")
+        self.process_file_thread(filepath)
+
+    def process_file_thread(self, filepath):
+        # Start processing in a separate thread to avoid freezing GUI
+        threading.Thread(target=self.process_file, args=(filepath,), daemon=True).start()
+
+    def process_file(self, filepath):
+        filename = os.path.basename(filepath)
+        ext = os.path.splitext(filepath)[1].lower()
+        
+        if ext not in ['.mp3', '.wav', '.m4a', '.flac', '.ogg']:
+            self.queue.put(("error", f"Arquivo não suportado: {filename}"))
+            return
+
+        self.queue.put(("status", f"Processando: {filename}..."))
+        
+        try:
+            with open(filepath, "rb") as file:
+                buffer_data = file.read()
+
+            payload = {
+                "buffer": buffer_data,
+            }
+
+            options = {
+                "model": "nova-3",
+                "smart_format": True,
+                "diarize": True,
+                "language": "pt-BR",
+            }
+
+            # Use self.deepgram client
+            response = self.deepgram.listen.v1.media.transcribe_file(payload, options)
+            transcript = response["results"]["channels"][0]["alternatives"][0]["transcript"]
+            
+            self.queue.put(("transcription", transcript))
+            self.queue.put(("status", "Pronto! Aguardando novos arquivos..."))
+
+        except Exception as e:
+            error_msg = f"Erro ao transcrever: {str(e)}"
+            print(error_msg)
+            self.queue.put(("error", error_msg))
+
     def check_queue(self):
         try:
             while True:
-                # Check for messages from background threads
                 msg_type, data = self.queue.get_nowait()
                 
                 if msg_type == "status":
@@ -118,7 +181,6 @@ class TranscriptionApp(ctk.CTk):
 
     def append_text(self, text):
         self.textbox.configure(state="normal")
-        # Add timestamp
         timestamp = datetime.datetime.now().strftime("%H:%M:%S")
         self.textbox.insert("end", f"[{timestamp}] Novo arquivo processado:\n")
         self.textbox.insert("end", text + "\n\n" + "-"*50 + "\n\n")
@@ -138,55 +200,38 @@ class TranscriptionApp(ctk.CTk):
         self.after(2000, lambda: self.copy_button.configure(text=original_text))
 
 class AudioFileHandler(FileSystemEventHandler):
-    def __init__(self, queue_ref):
+    def __init__(self, queue_ref, process_callback):
         self.queue = queue_ref
-        self.deepgram = DeepgramClient(DEEPGRAM_API_KEY)
+        self.process_callback = process_callback
 
     def on_created(self, event):
         if event.is_directory:
             return
-        
-        filename = event.src_path
-        ext = os.path.splitext(filename)[1].lower()
+        self.handle_event(event.src_path)
+
+    def on_moved(self, event):
+        if event.is_directory:
+            return
+        self.handle_event(event.dest_path)
+
+    def handle_event(self, filepath):
+        print(f"DEBUG: Event detected for {filepath}")
+        ext = os.path.splitext(filepath)[1].lower()
         
         if ext in ['.mp3', '.wav', '.m4a', '.flac', '.ogg']:
-            print(f"File detected: {filename}")
-            # Wait a moment for file write to complete
-            time.sleep(1) 
-            self.process_file(filename)
+            print(f"File qualified: {filepath}")
+            # Wait a moment for file write/move to complete
+            time.sleep(5) 
+            self.process_callback(filepath)
 
-    def process_file(self, filepath):
-        self.queue.put(("status", f"Processando: {os.path.basename(filepath)}..."))
-        
-        try:
-            with open(filepath, "rb") as file:
-                buffer_data = file.read()
-
-            payload: FileSource = {
-                "buffer": buffer_data,
-            }
-
-            options = PrerecordedOptions(
-                model="nova-3",
-                smart_format=True,
-                diarize=True,
-                language="pt-BR",
-            )
-
-            response = self.deepgram.listen.rest.v("1").transcribe_file(payload, options)
-            transcript = response["results"]["channels"][0]["alternatives"][0]["transcript"]
-            
-            self.queue.put(("transcription", transcript))
-            self.queue.put(("status", "Pronto! Aguardando novos arquivos..."))
-
-        except Exception as e:
-            error_msg = f"Erro ao transcrever: {str(e)}"
-            print(error_msg)
-            self.queue.put(("error", error_msg))
 
 if __name__ == "__main__":
+    print("DEBUG: Starting main...")
     ctk.set_appearance_mode("Dark")
     ctk.set_default_color_theme("blue")
     
+    print("DEBUG: Initializing app...")
     app = TranscriptionApp()
+    print("DEBUG: Entering mainloop...")
     app.mainloop()
+    print("DEBUG: Exited mainloop")
