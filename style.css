@@ -319,6 +319,11 @@ h4 {
     margin-bottom: 0;
 }
 
+.service-item-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* About Section */
 .about-section {
     padding: var(--spacing-lg) 0;
@@ -507,6 +512,11 @@ h4 {
 }
 
 @media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
     .nav {
         display: none;
         position: absolute;
