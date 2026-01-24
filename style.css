@@ -536,6 +536,13 @@ h4 {
         order: -1;
     }
 
+    /* Aumenta a foto do Dr. Fernando na página sobre-o-medico.html em mobile */
+    .about-image img {
+        max-width: 80%;
+        margin: 0 auto;
+        display: block;
+    }
+
     .hero-title {
         font-size: 2rem;
     }

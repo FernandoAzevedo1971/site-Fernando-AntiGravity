@@ -190,6 +190,11 @@
                 width: 100%;
                 max-width: 300px;
             }
+
+            /* Endoscopia: empilhar imagens verticalmente no mobile */
+            .tech-image[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+            }
         }
 
         .time-badge {
@@ -313,9 +318,10 @@
                             Saiba mais sobre Espirometria <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
-                    <div class="tech-image-placeholder">
-                        <i class="fas fa-image"></i>
-                        <span>Imagem Espirometria será adicionada</span>
+                    <div class="tech-image">
+                        <img src="./assets/espirometria_equipamento.png"
+                            alt="Equipamento de Espirometria - Monitor mostrando curvas e valores da prova de função pulmonar"
+                            style="width: 100%; height: auto; border-radius: 15px; box-shadow: var(--shadow-sm);">
                     </div>
                 </div>
 
@@ -328,10 +334,22 @@
                             de cornetos ou outras alterações anatômicas nas vias aéreas superiores que frequentemente
                             impactam a saúde pulmonar e a qualidade do sono.</p>
                     </div>
-                    <div class="tech-image">
-                        <img src="./assets/endoscopia_nasal.png"
-                            alt="Endoscopia nasal com óptica rígida - procedimento e imagens endoscópicas da cavidade nasal"
+                    <div class="tech-image"
+                        style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; align-items: center;">
+                        <!-- Foto principal: paciente sendo examinada -->
+                        <img src="./assets/endoscopia_paciente.png"
+                            alt="Paciente realizando endoscopia nasal com óptica rígida"
                             style="width: 100%; height: auto; border-radius: 15px; box-shadow: var(--shadow-sm);">
+
+                        <!-- Fotos menores empilhadas: imagens internas -->
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <img src="./assets/endoscopia_interna_1.png"
+                                alt="Visualização endoscópica da cavidade nasal - imagem 1"
+                                style="width: 100%; height: auto; border-radius: 15px; box-shadow: var(--shadow-sm);">
+                            <img src="./assets/endoscopia_interna_2.png"
+                                alt="Visualização endoscópica da cavidade nasal - imagem 2"
+                                style="width: 100%; height: auto; border-radius: 15px; box-shadow: var(--shadow-sm);">
+                        </div>
                     </div>
                 </div>
 
@@ -361,9 +379,17 @@
                             seis derivações permite a avaliação imediata do ritmo cardíaco, auxiliando na triagem de
                             arritmias ou sobrecargas que possam mimetizar ou exacerbar sintomas respiratórios.</p>
                     </div>
-                    <div class="tech-image-placeholder">
-                        <i class="fas fa-image"></i>
-                        <span>Imagem Kardia AliveCor será adicionada</span>
+                    <div class="tech-image"
+                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: center;">
+                        <!-- Foto do dispositivo sendo usado -->
+                        <img src="./assets/kardia_dispositivo.png"
+                            alt="Dispositivo Kardia AliveCor sendo utilizado para captura de ECG de 6 derivações"
+                            style="width: 100%; height: auto; border-radius: 15px; box-shadow: var(--shadow-sm);">
+
+                        <!-- Tela do app mostrando ECG -->
+                        <img src="./assets/kardia_app.png"
+                            alt="Interface do aplicativo Kardia mostrando análise instantânea de ECG normal com 6 derivações"
+                            style="width: 100%; height: auto; border-radius: 15px; box-shadow: var(--shadow-sm);">
                     </div>
                 </div>
             </div>

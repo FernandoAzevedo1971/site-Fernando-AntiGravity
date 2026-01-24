@@ -18,7 +18,7 @@ from deepgram import (
 )
 
 # Load environment variables
-load_dotenv()
+load_dotenv(override=True)
 print("DEBUG: Environment loaded")
 
 # Configuration
@@ -39,6 +39,10 @@ class Tk(ctk.CTk, TkinterDnD.DnDWrapper):
 class TranscriptionApp(Tk):
     def __init__(self):
         super().__init__()
+        
+        # Set light theme
+        ctk.set_appearance_mode("light")
+        ctk.set_default_color_theme("blue")
 
         self.title("Audio Transcriber (Deepgram Nova-3)")
         self.geometry("800x600")
@@ -53,6 +57,9 @@ class TranscriptionApp(Tk):
         
         self.title_label = ctk.CTkLabel(self.header_frame, text="Monitor de Transcrição", font=ctk.CTkFont(size=20, weight="bold"))
         self.title_label.pack(side="left", padx=10, pady=10)
+
+        self.usage_label = ctk.CTkLabel(self.header_frame, text="Uso: 0 arquivos", font=ctk.CTkFont(size=11), text_color="#0066CC")
+        self.usage_label.pack(side="right", padx=10, pady=10)
 
         self.status_label = ctk.CTkLabel(self.header_frame, text="Arraste arquivos aqui ou aguarde...", text_color="gray")
         self.status_label.pack(side="right", padx=10, pady=10)
@@ -75,6 +82,10 @@ class TranscriptionApp(Tk):
 
         # Queue for thread communication
         self.queue = queue.Queue()
+        
+        # Usage tracking
+        self.processed_files_count = 0
+        self.total_audio_minutes = 0.0
 
         # Drag and Drop Setup
         self.drop_target_register(DND_FILES)
@@ -88,6 +99,9 @@ class TranscriptionApp(Tk):
 
         # Start Monitor
         self.start_monitor()
+        
+        # Try to update balance display (will fallback to usage counter if no permissions)
+        self.after(2000, self.try_update_balance)
 
     def start_monitor(self):
         if not DEEPGRAM_API_KEY:
@@ -116,6 +130,42 @@ class TranscriptionApp(Tk):
         print(f"DEBUG: File dropped: {filepath}")
         self.process_file_thread(filepath)
 
+    def format_diarized_transcript(self, response):
+        """Format the transcript with speaker diarization"""
+        try:
+            # Get the paragraphs with speaker information
+            paragraphs = response.results.channels[0].alternatives[0].paragraphs
+            
+            if not paragraphs or not hasattr(paragraphs, 'paragraphs'):
+                # Fallback to simple transcript if diarization not available
+                return response.results.channels[0].alternatives[0].transcript
+            
+            formatted_text = ""
+            for para in paragraphs.paragraphs:
+                speaker = para.speaker
+                
+                # Extract text from sentences (paragraphs don't have a direct 'text' attribute)
+                if hasattr(para, 'sentences') and para.sentences:
+                    text = " ".join([s.text for s in para.sentences if hasattr(s, 'text')])
+                else:
+                    # Fallback: reconstruct from words if sentences are not available
+                    text = "[no text available]"
+                
+                # Format: "Speaker 0: [text]"
+                formatted_text += f"Speaker {int(speaker)}: {text}\n\n"
+            
+            return formatted_text.strip()
+        
+        except Exception as e:
+            print(f"Error formatting diarization: {e}")
+            import traceback
+            traceback.print_exc()
+            # Fallback to simple transcript
+            try:
+                return response.results.channels[0].alternatives[0].transcript
+            except:
+                return "Erro ao processar transcrição"
+    
     def process_file_thread(self, filepath):
         # Start processing in a separate thread to avoid freezing GUI
         threading.Thread(target=self.process_file, args=(filepath,), daemon=True).start()
@@ -134,22 +184,33 @@ class TranscriptionApp(Tk):
             with open(filepath, "rb") as file:
                 buffer_data = file.read()
 
-            payload = {
-                "buffer": buffer_data,
-            }
-
             options = {
                 "model": "nova-3",
                 "smart_format": True,
                 "diarize": True,
+                "paragraphs": True,
                 "language": "pt-BR",
             }
 
-            # Use self.deepgram client
-            response = self.deepgram.listen.v1.media.transcribe_file(payload, options)
-            transcript = response["results"]["channels"][0]["alternatives"][0]["transcript"]
+            # Use self.deepgram client - pass raw bytes directly
+            response = self.deepgram.listen.v1.media.transcribe_file(request=buffer_data, **options)
             
-            self.queue.put(("transcription", transcript))
+            # Extract diarization information
+            formatted_transcript = self.format_diarized_transcript(response)
+            
+            # Get audio duration from response metadata if available
+            try:
+                if hasattr(response, 'metadata') and hasattr(response.metadata, 'duration'):
+                    duration_seconds = response.metadata.duration
+                    self.total_audio_minutes += duration_seconds / 60.0
+            except:
+                pass  # If duration not available, just skip it
+            
+            # Update usage counter
+            self.processed_files_count += 1
+            self.queue.put(("update_usage", None))
+            
+            self.queue.put(("transcription", formatted_transcript))
             self.queue.put(("status", "Pronto! Aguardando novos arquivos..."))
 
         except Exception as e:
@@ -163,20 +224,57 @@ class TranscriptionApp(Tk):
                 msg_type, data = self.queue.get_nowait()
                 
                 if msg_type == "status":
-                    self.status_label.configure(text=data, text_color="white")
+                    self.status_label.configure(text=data, text_color="gray")
                 elif msg_type == "error":
                     self.status_label.configure(text=data, text_color="red")
                 elif msg_type == "transcription":
                     self.append_text(data)
+                elif msg_type == "update_usage":
+                    self.update_usage_display()
+                elif msg_type == "update_balance":
+                    # Update with real balance from API
+                    self.usage_label.configure(text=data, text_color="#00AA00")
                 
                 self.queue.task_done()
         except queue.Empty:
             pass
         
         self.after(100, self.check_queue)
+    
+    def update_usage_display(self):
+        """Update the usage counter display"""
+        if self.total_audio_minutes > 0:
+            usage_text = f"Uso: {self.processed_files_count} arquivos ({self.total_audio_minutes:.1f} min)"
+        else:
+            usage_text = f"Uso: {self.processed_files_count} arquivos"
+        self.usage_label.configure(text=usage_text)
+    
+    def try_update_balance(self):
+        """Try to get real balance from API, fallback to usage counter"""
+        def fetch_balance():
+            try:
+                # Try to get real balance from API
+                projects = self.deepgram.manage.v1.projects.list()
+                project_id = projects.projects[0].project_id
+                balances = self.deepgram.manage.v1.projects.billing.balances.list(project_id=project_id)
+                
+                if balances and hasattr(balances, 'balances') and balances.balances:
+                    total = sum(b.amount for b in balances.balances if hasattr(b, 'amount'))
+                    self.queue.put(("update_balance", f"Saldo: ${total:.2f}"))
+                    return True
+            except Exception as e:
+                # If API call fails (no permissions), just use usage counter
+                print(f"Could not fetch balance (using usage counter): {e}")
+                return False
+        
+        # Run in background thread
+        threading.Thread(target=fetch_balance, daemon=True).start()
+        
+        # Update again in 60 seconds
+        self.after(60000, self.try_update_balance)
 
     def update_status(self, text, error=False):
-        color = "red" if error else "white"
+        color = "red" if error else "gray"
         self.status_label.configure(text=text, text_color=color)
 
     def append_text(self, text):
@@ -227,8 +325,6 @@ class AudioFileHandler(FileSystemEventHandler):
 
 if __name__ == "__main__":
     print("DEBUG: Starting main...")
-    ctk.set_appearance_mode("Dark")
-    ctk.set_default_color_theme("blue")
     
     print("DEBUG: Initializing app...")
     app = TranscriptionApp()
