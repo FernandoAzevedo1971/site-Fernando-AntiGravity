@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumologia | Dr. Fernando Azevedo</title>
+    <meta name="description"
+        content="Pneumologia de excelência com recursos tecnológicos point-of-care integrados. Consultas de até 1:40h para diagnóstico preciso.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .page-header {
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, #1e5a7d 0%, #2d7ba6 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+        }
+
+        .content-section {
+            padding: 60px 0;
+        }
+
+        .intro-section {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+
+        .intro-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 2rem;
+        }
+
+        .intro-section p {
+            line-height: 1.9;
+            margin-bottom: 20px;
+            text-align: justify;
+            font-size: 1.05rem;
+        }
+
+        .highlight-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f4f8 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .highlight-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .tech-resource {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 50px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tech-resource:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .tech-resource:nth-child(even) {
+            direction: rtl;
+        }
+
+        .tech-resource:nth-child(even)>* {
+            direction: ltr;
+        }
+
+        .tech-content h4 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .tech-content p {
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .tech-image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #999;
+            box-shadow: var(--shadow-sm);
+            border: 2px dashed #ccc;
+        }
+
+        .tech-image-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #bbb;
+        }
+
+        .tech-image-placeholder span {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #1e5a7d 0%, #2d7ba6 100%);
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .tech-resource {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .tech-resource:nth-child(even) {
+                direction: ltr;
+            }
+
+            .intro-section p {
+                text-align: left;
+            }
+
+            .tech-content p {
+                text-align: left;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        .time-badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+
+        .no-cost-badge {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="./assets/logo_1.png" alt="Dr. Fernando Azevedo Logo">
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="index.html#sobre" class="nav-link">Sobre</a>
+                <a href="index.html#servicos" class="nav-link">Áreas de Atuação</a>
+                <a href="index.html#contato" class="nav-link">Contato</a>
+                <a href="https://wa.me/5521993901377" target="_blank" class="btn btn-primary">Agendar Consulta</a>
+            </nav>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="hero-title" style="font-size: 2.5rem;">Pneumologia</h1>
+            <p class="hero-subtitle">A Ciência do Cuidado Respiratório</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section">
+        <div class="container">
+            <div class="intro-section">
+                <h2>Pneumologia de Excelência</h2>
+                <p>A Pneumologia é a especialidade médica que se dedica ao estudo, diagnóstico e manejo clínico das
+                    patologias que acometem o sistema respiratório, abrangendo as vias aéreas superiores e inferiores,
+                    pulmões, pleura e caixa torácica. A atuação do pneumologista é fundamental para o tratamento de
+                    condições complexas como asma, Doença Pulmonar Obstrutiva Crônica (DPOC), apneia obstrutiva do
+                    sono, neoplasias pulmonares, pneumonias e doenças intersticiais. A complexidade dessas condições
+                    exige uma profundidade técnica que transcende a abordagem generalista, uma vez que o especialista
+                    possui o treinamento específico necessário para interpretar nuances fisiológicas e radiológicas que
+                    determinam o sucesso terapêutico a longo prazo.</p>
+
+                <p>A consulta com um especialista em Pneumologia oferece uma análise detalhada da reserva funcional do
+                    paciente. Diferente de uma abordagem superficial, o diagnóstico preciso e ágil é o pilar
+                    fundamental para a restauração do bem-estar e a preservação da função pulmonar. Identificar uma
+                    patologia em seu estágio inicial ou ajustar uma terapêutica com base em dados técnicos rigorosos
+                    agrega valor imensurável à qualidade de vida, prevenindo complicações graves, hospitalizações e
+                    garantindo que o paciente mantenha sua capacidade física e vitalidade.</p>
+            </div>
+
+            <div class="highlight-section">
+                <h3><i class="fas fa-clock"></i> Dedicação Exclusiva ao Seu Cuidado</h3>
+                <p>No consultório do Dr. Fernando Azevedo, a prática clínica é regida pela premissa da dedicação
+                    exclusiva e do rigor diagnóstico. Para garantir uma anamnese completa e um exame físico minucioso,
+                    é reservado um intervalo de <strong>até 1:40h</strong> para a primeira consulta.
+                    Este tempo é essencial para a compreensão holística do histórico clínico do paciente e para a
+                    integração de tecnologias diagnósticas avançadas.</p>
+
+                <p style="margin-top: 20px;">Durante a avaliação, quando estabelecida a indicação clínica, podem ser
+                    utilizados recursos tecnológicos de ponta <strong>sem custo adicional ao valor da consulta</strong>.
+                    Estes métodos visam a precisão diagnóstica imediata (point-of-care),
+                    permitindo que decisões terapêuticas sejam tomadas com maior assertividade no momento do
+                    atendimento.</p>
+            </div>
+
+            <div style="margin-top: 80px;">
+                <h2 style="color: var(--primary-color); text-align: center; margin-bottom: 50px; font-size: 2rem;">
+                    Recursos Tecnológicos Integrados à Consulta</h2>
+
+                <!-- POCUS -->
+                <div class="tech-resource">
+                    <div class="tech-content">
+                        <h4><i class="fas fa-wave-square"></i> Ultrassonografia Point-of-Care (POCUS)</h4>
+                        <p>A utilização da ultrassonografia portátil no tórax permite a avaliação em tempo real da
+                            superfície pleural e do parênquima pulmonar periférico, auxiliando na identificação de
+                            derrames pleurais, congestão pulmonar ou consolidações de forma não invasiva.</p>
+                    </div>
+                    <div class="tech-image-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Imagem POCUS será adicionada</span>
+                    </div>
+                </div>
+
+                <!-- Espirometria -->
+                <div class="tech-resource">
+                    <div class="tech-content">
+                        <h4><i class="fas fa-lungs"></i> Espirometria (Prova de Função Pulmonar)</h4>
+                        <p>Realizada com ou sem o uso de broncodilatador, a espirometria é o padrão-ouro para
+                            quantificar fluxos e volumes pulmonares, sendo indispensável para o diagnóstico e
+                            acompanhamento de doenças obstrutivas e restritivas.</p>
+                        <a href="espirometria.html" class="btn btn-secondary"
+                            style="margin-top: 15px; display: inline-block;">
+                            Saiba mais sobre Espirometria <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="tech-image-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Imagem Espirometria será adicionada</span>
+                    </div>
+                </div>
+
+                <!-- Video-Rinoscopia -->
+                <div class="tech-resource">
+                    <div class="tech-content">
+                        <h4><i class="fas fa-eye"></i> Video-Rinoscopia e Video-Otoscopia</h4>
+                        <p>A utilização de óptica rígida para a visualização da cavidade nasal e do cavum, juntamente
+                            com a otoscopia digital de alta resolução, permite identificar focos inflamatórios ou
+                            anatômicos nas vias aéreas superiores que frequentemente impactam a saúde pulmonar e a
+                            qualidade do sono.</p>
+                    </div>
+                    <div class="tech-image-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Imagem Video-Rinoscopia será adicionada</span>
+                    </div>
+                </div>
+
+                <!-- ECG -->
+                <div class="tech-resource">
+                    <div class="tech-content">
+                        <h4><i class="fas fa-heartbeat"></i> Eletrocardiograma Portátil (Kardia AliveCor 6 derivações)
+                        </h4>
+                        <p>Dada a íntima relação entre as funções cardíaca e pulmonar, o uso de tecnologia portátil de
+                            seis derivações permite a avaliação imediata do ritmo cardíaco, auxiliando na triagem de
+                            arritmias ou sobrecargas que possam mimetizar ou exacerbar sintomas respiratórios.</p>
+                    </div>
+                    <div class="tech-image-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Imagem Kardia AliveCor será adicionada</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h3>Agende sua Consulta de Pneumologia</h3>
+            <p>Experiência completa em diagnóstico respiratório com tecnologia de ponta</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/5521993901377?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Pneumologia%20com%20o%20Dr.%20Fernando%20Azevedo"
+                    target="_blank" class="btn btn-secondary">
+                    <i class="fab fa-whatsapp"></i> AGENDAR CONSULTA
+                </a>
+                <a href="sobre-o-medico.html" class="btn btn-primary"
+                    style="background: white; color: var(--primary-color);">
+                    <i class="fas fa-user-md"></i> CONHEÇA O DR. FERNANDO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <img src="./assets/logo_1.png" alt="Dr. Fernando Azevedo" style="filter: brightness(0) invert(1);">
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Início</a>
+                <a href="index.html#sobre">Sobre</a>
+                <a href="index.html#servicos">Serviços</a>
+                <a href="index.html#contato">Contato</a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/drfernandoazevedopneumosono" target="_blank"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="https://share.google/49OhabLMeeRtbKcHp" target="_blank" title="Avalie no Google"><i
+                        class="fab fa-google"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Dr. Fernando Azevedo. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('.nav');
+
+        mobileBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+
+</html>
