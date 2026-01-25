@@ -41,33 +41,240 @@
         }
 
         .content-section {
-            padding: 80px 0;
-            min-height: 400px;
+            padding: 60px 0;
         }
 
-        .placeholder-content {
+        .questionnaire-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-button {
+            padding: 15px 30px;
+            background: #f0f0f0;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .tab-button:hover {
+            background: #e0e0e0;
+        }
+
+        .tab-button.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .questionnaire-container {
+            display: none;
             max-width: 800px;
             margin: 0 auto;
-            text-align: center;
         }
 
-        .placeholder-content i {
-            font-size: 5rem;
-            color: var(--primary-color);
+        .questionnaire-container.active {
+            display: block;
+        }
+
+        .questionnaire-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
             margin-bottom: 30px;
         }
 
-        .placeholder-content h2 {
+        .questionnaire-title {
             color: var(--primary-color);
-            margin-bottom: 20px;
-            font-size: 2rem;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
         }
 
-        .placeholder-content p {
+        .questionnaire-description {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .question-group {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .question-group:last-of-type {
+            border-bottom: none;
+        }
+
+        .question-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .radio-option:hover {
+            background: #f0f0f0;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-group label {
+            font-weight: 500;
+            color: #555;
+        }
+
+        .input-group input,
+        .input-group select {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .bmi-calculator {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .bmi-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .calculate-btn {
+            padding: 12px 30px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            width: 100%;
             font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 30px;
-            color: var(--text-light);
+        }
+
+        .calculate-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .result-box {
+            display: none;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border-left: 5px solid #4caf50;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-box.warning {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-color: #ff9800;
+        }
+
+        .result-box.danger {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border-color: #f44336;
+        }
+
+        .result-score {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .result-interpretation {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .result-recommendation {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .reset-btn {
+            padding: 10px 25px;
+            background: #666;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .reset-btn:hover {
+            background: #555;
+        }
+
+        @media (max-width: 768px) {
+            .questionnaire-box {
+                padding: 25px;
+            }
+
+            .bmi-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-button {
+                flex: 1;
+                min-width: 120px;
+            }
         }
     </style>
 </head>
@@ -97,35 +304,456 @@
     <section class="page-header">
         <div class="container">
             <h1 class="hero-title" style="font-size: 2.5rem;">Questionários de Avaliação do Sono</h1>
-            <p class="hero-subtitle">Ferramentas Validadas para Avaliação da Qualidade do Sono</p>
+            <p class="hero-subtitle">Ferramentas Validadas para Identificação de Distúrbios do Sono</p>
         </div>
     </section>
 
     <!-- Main Content -->
     <section class="content-section">
         <div class="container">
-            <div class="placeholder-content">
-                <i class="fas fa-clipboard-list"></i>
-                <h2>Em Breve: Questionários Interativos</h2>
-                <p>Esta página estará disponível em breve com questionários validados cientificamente para avaliar a
-                    qualidade do seu sono e identificar possíveis distúrbios respiratórios noturnos.</p>
-                <p>Os questionários incluirão ferramentas como:</p>
-                <ul style="text-align: left; max-width: 500px; margin: 30px auto; list-style-position: inside;">
-                    <li style="margin-bottom: 10px;"><strong>Escala de Sonolência de Epworth</strong></li>
-                    <li style="margin-bottom: 10px;"><strong>Questionário de Berlim</strong></li>
-                    <li style="margin-bottom: 10px;"><strong>Índice de Qualidade do Sono de Pittsburgh</strong></li>
-                    <li style="margin-bottom: 10px;"><strong>STOP-BANG</strong></li>
-                </ul>
-                <div style="margin-top: 40px;">
-                    <a href="medicina-do-sono.html" class="btn btn-secondary" style="margin-right: 15px;">
-                        <i class="fas fa-arrow-left"></i> Voltar para Medicina do Sono
-                    </a>
-                    <a href="https://wa.me/5521993901377?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20em%20Medicina%20do%20Sono%20com%20Dr.%20Fernando%20Azevedo."
-                        target="_blank" class="btn btn-primary">
-                        <i class="fab fa-whatsapp"></i> Agendar Consulta
-                    </a>
+            <!-- Tabs -->
+            <div class="questionnaire-tabs">
+                <button class="tab-button active" onclick="showQuestionnaire('epworth')">
+                    <i class="fas fa-bed"></i> Escala de Epworth
+                </button>
+                <button class="tab-button" onclick="showQuestionnaire('stopbang')">
+                    <i class="fas fa-clipboard-check"></i> STOP-BANG
+                </button>
+                <button class="tab-button" onclick="showQuestionnaire('nosas')">
+                    <i class="fas fa-moon"></i> NoSAS
+                </button>
+            </div>
+
+            <!-- Epworth Questionnaire -->
+            <div id="epworth" class="questionnaire-container active">
+                <div class="questionnaire-box">
+                    <h2 class="questionnaire-title">Escala de Sonolência de Epworth</h2>
+                    <p class="questionnaire-description">
+                        Avalie a probabilidade de você cochilar ou adormecer nas seguintes situações. Mesmo que você não
+                        tenha vivenciado algumas dessas situações recentemente, tente imaginar como elas o afetariam.
+                    </p>
+
+                    <form id="epworth-form">
+                        <div class="question-group">
+                            <label class="question-label">1. Sentado e lendo</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="q1" value="0" required>
+                                    Nunca cochilaria (0)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q1" value="1">
+                                    Pequena chance de cochilar (1)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q1" value="2">
+                                    Moderada chance de cochilar (2)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q1" value="3">
+                                    Alta chance de cochilar (3)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">2. Assistindo TV</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="q2" value="0" required>
+                                    Nunca cochilaria (0)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q2" value="1">
+                                    Pequena chance de cochilar (1)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q2" value="2">
+                                    Moderada chance de cochilar (2)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q2" value="3">
+                                    Alta chance de cochilar (3)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">3. Sentado, quieto, em um lugar público (por exemplo, em um
+                                teatro, reunião ou palestra)</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="q3" value="0" required>
+                                    Nunca cochilaria (0)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q3" value="1">
+                                    Pequena chance de cochilar (1)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q3" value="2">
+                                    Moderada chance de cochilar (2)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q3" value="3">
+                                    Alta chance de cochilar (3)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">4. Como passageiro de carro, trem ou ônibus, andando por uma
+                                hora sem parar</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="q4" value="0" required>
+                                    Nunca cochilaria (0)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q4" value="1">
+                                    Pequena chance de cochilar (1)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q4" value="2">
+                                    Moderada chance de cochilar (2)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q4" value="3">
+                                    Alta chance de cochilar (3)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">5. Deitado para descansar à tarde, quando as circunstâncias
+                                permitem</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="q5" value="0" required>
+                                    Nunca cochilaria (0)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q5" value="1">
+                                    Pequena chance de cochilar (1)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q5" value="2">
+                                    Moderada chance de cochilar (2)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q5" value="3">
+                                    Alta chance de cochilar (3)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">6. Sentado e conversando com alguém</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="q6" value="0" required>
+                                    Nunca cochilaria (0)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q6" value="1">
+                                    Pequena chance de cochilar (1)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q6" value="2">
+                                    Moderada chance de cochilar (2)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q6" value="3">
+                                    Alta chance de cochilar (3)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">7. Sentado calmamente após o almoço (sem bebida
+                                alcoólica)</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="q7" value="0" required>
+                                    Nunca cochilaria (0)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q7" value="1">
+                                    Pequena chance de cochilar (1)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q7" value="2">
+                                    Moderada chance de cochilar (2)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q7" value="3">
+                                    Alta chance de cochilar (3)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">8. Em um carro parado no trânsito por alguns minutos</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="q8" value="0" required>
+                                    Nunca cochilaria (0)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q8" value="1">
+                                    Pequena chance de cochilar (1)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q8" value="2">
+                                    Moderada chance de cochilar (2)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="q8" value="3">
+                                    Alta chance de cochilar (3)
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="calculate-btn">
+                            <i class="fas fa-calculator"></i> Calcular Resultado
+                        </button>
+                    </form>
+
+                    <div id="epworth-result" class="result-box"></div>
                 </div>
             </div>
+
+            <!-- STOP-BANG Questionnaire -->
+            <div id="stopbang" class="questionnaire-container">
+                <div class="questionnaire-box">
+                    <h2 class="questionnaire-title">Questionário STOP-BANG</h2>
+                    <p class="questionnaire-description">
+                        Ferramenta de triagem para apneia obstrutiva do sono. Responda às perguntas abaixo:
+                    </p>
+
+                    <form id="stopbang-form">
+                        <div class="question-group">
+                            <label class="question-label">S - Você RONCA alto (alto o suficiente para ser ouvido através
+                                de portas fechadas)?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="snore" value="1" required>
+                                    Sim
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="snore" value="0">
+                                    Não
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">T - Você frequentemente se sente CANSADO, fatigado ou
+                                sonolento
+                                durante o dia?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="tired" value="1" required>
+                                    Sim
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="tired" value="0">
+                                    Não
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">O - Alguém OBSERVOU você parar de respirar durante o
+                                sono?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="observed" value="1" required>
+                                    Sim
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="observed" value="0">
+                                    Não
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">P - Você tem ou está sendo tratado para PRESSÃO alta?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="pressure" value="1" required>
+                                    Sim
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="pressure" value="0">
+                                    Não
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">B - IMC (Índice de Massa Corporal) maior que 35 kg/m²?</label>
+
+                            <div class="bmi-calculator">
+                                <p style="font-weight: 600; margin-bottom: 10px;">Calculadora de IMC:</p>
+                                <div class="bmi-inputs">
+                                    <div class="input-group">
+                                        <label>Peso (kg):</label>
+                                        <input type="number" id="weight" step="0.1" placeholder="Ex: 75.5">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Altura:</label>
+                                        <input type="number" id="height" step="0.01" placeholder="Ex: 1.75 ou 175">
+                                        <select id="height-unit">
+                                            <option value="m">metros (m)</option>
+                                            <option value="cm">centímetros (cm)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <p id="bmi-display"
+                                    style="margin-top: 10px; font-weight: 600; color: var(--primary-color);"></p>
+                            </div>
+
+                            <input type="hidden" name="bmi" id="bmi-value" value="0">
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">A - IDADE maior que 50 anos?</label>
+                            <div class="input-group">
+                                <label>Sua idade:</label>
+                                <input type="number" id="age" name="age" min="0" max="120" required>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">N - Circunferência do PESCOÇO maior que 40 cm?</label>
+                            <div class="input-group">
+                                <label>Circunferência do pescoço (cm):</label>
+                                <input type="number" id="neck" step="0.1" placeholder="Ex: 42">
+                                <label class="radio-option" style="margin-top: 10px;">
+                                    <input type="checkbox" id="neck-unknown">
+                                    Não sei
+                                </label>
+                            </div>
+                            <input type="hidden" name="neck" id="neck-value" value="0">
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">G - GÊNERO masculino?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="gender" value="1" required>
+                                    Masculino
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="gender" value="0">
+                                    Feminino
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="calculate-btn">
+                            <i class="fas fa-calculator"></i> Calcular Resultado
+                        </button>
+                    </form>
+
+                    <div id="stopbang-result" class="result-box"></div>
+                </div>
+            </div>
+
+            <!-- NoSAS Questionnaire -->
+            <div id="nosas" class="questionnaire-container">
+                <div class="questionnaire-box">
+                    <h2 class="questionnaire-title">Escore NoSAS</h2>
+                    <p class="questionnaire-description">
+                        Questionário para avaliação de risco de apneia obstrutiva do sono.
+                    </p>
+
+                    <form id="nosas-form">
+                        <div class="question-group">
+                            <label class="question-label">Circunferência do pescoço</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="neck_circ" value="0" required>
+                                    &lt; 40 cm (0 pontos)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="neck_circ" value="3">
+                                    40-43 cm (3 pontos)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="neck_circ" value="4">
+                                    &gt; 43 cm (4 pontos)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">Obesidade (IMC ≥ 25 kg/m²)?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="obesity" value="5" required>
+                                    Sim (5 pontos)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="obesity" value="0">
+                                    Não (0 pontos)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">Ronco?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="snoring" value="2" required>
+                                    Sim (2 pontos)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="snoring" value="0">
+                                    Não (0 pontos)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">Idade &gt; 55 anos?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="age_nosas" value="4" required>
+                                    Sim (4 pontos)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="age_nosas" value="0">
+                                    Não (0 pontos)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question-group">
+                            <label class="question-label">Sexo masculino?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="sex" value="2" required>
+                                    Sim (2 pontos)
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="sex" value="0">
+                                    Não (0 pontos)
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="calculate-btn">
+                            <i class="fas fa-calculator"></i> Calcular Resultado
+                        </button>
+                    </form>
+
+                    <div id="nosas-result" class="result-box"></div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -156,6 +784,19 @@
     </footer>
 
     <script>
+        // Tab switching
+        function showQuestionnaire(questionnaire) {
+            document.querySelectorAll('.questionnaire-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            document.getElementById(questionnaire).classList.add('active');
+            event.target.classList.add('active');
+        }
+
         // Mobile Menu Toggle
         const mobileBtn = document.querySelector('.mobile-menu-btn');
         const nav = document.querySelector('.nav');
@@ -173,6 +814,222 @@
                 header.classList.remove('scrolled');
             }
         });
+
+        // BMI Calculator for STOP-BANG
+        const weightInput = document.getElementById('weight');
+        const heightInput = document.getElementById('height');
+        const heightUnit = document.getElementById('height-unit');
+        const bmiDisplay = document.getElementById('bmi-display');
+        const bmiValue = document.getElementById('bmi-value');
+
+        function calculateBMI() {
+            const weight = parseFloat(weightInput.value);
+            let height = parseFloat(heightInput.value);
+            const unit = heightUnit.value;
+
+            if (weight && height) {
+                // Convert cm to meters if needed
+                if (unit === 'cm') {
+                    height = height / 100;
+                }
+
+                const bmi = weight / (height * height);
+                bmiDisplay.textContent = `Seu IMC: ${bmi.toFixed(1)} kg/m²`;
+
+                if (bmi > 35) {
+                    bmiValue.value = '1';
+                    bmiDisplay.textContent += ' - IMC > 35 (Sim)';
+                } else {
+                    bmiValue.value = '0';
+                    bmiDisplay.textContent += ' - IMC ≤ 35 (Não)';
+                }
+            }
+        }
+
+        weightInput.addEventListener('input', calculateBMI);
+        heightInput.addEventListener('input', calculateBMI);
+        heightUnit.addEventListener('change', calculateBMI);
+
+        // Neck circumference handling
+        const neckInput = document.getElementById('neck');
+        const neckUnknown = document.getElementById('neck-unknown');
+        const neckValue = document.getElementById('neck-value');
+
+        neckInput.addEventListener('input', () => {
+            const neck = parseFloat(neckInput.value);
+            if (neck > 40) {
+                neckValue.value = '1';
+            } else {
+                neckValue.value = '0';
+            }
+        });
+
+        neckUnknown.addEventListener('change', () => {
+            if (neckUnknown.checked) {
+                neckInput.disabled = true;
+                neckInput.value = '';
+                neckValue.value = '0';
+            } else {
+                neckInput.disabled = false;
+            }
+        });
+
+        // Epworth Form Submit
+        document.getElementById('epworth-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            let score = 0;
+
+            for (let i = 1; i <= 8; i++) {
+                const answer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (answer) {
+                    score += parseInt(answer.value);
+                }
+            }
+
+            const resultBox = document.getElementById('epworth-result');
+            resultBox.classList.remove('warning', 'danger');
+            resultBox.classList.add('show');
+
+            let interpretation = '';
+            let recommendation = '';
+
+            if (score <= 10) {
+                interpretation = '<strong>Sonolência Normal</strong><br>Seu nível de sonolência diurna está dentro do esperado.';
+                recommendation = 'Continue mantendo bons hábitos de sono.';
+            } else if (score <= 16) {
+                resultBox.classList.add('warning');
+                interpretation = '<strong>Sonolência Diurna Leve a Moderada</strong><br>Você apresenta sinais de sonolência excessiva durante o dia.';
+                recommendation = 'Recomenda-se avaliação médica especializada para investigar possíveis causas.';
+            } else {
+                resultBox.classList.add('danger');
+                interpretation = '<strong>Sonolência Diurna Excessiva</strong><br>Você apresenta sonolência diurna significativa.';
+                recommendation = '<strong>Importante:</strong> Procure avaliação médica especializada urgentemente. Pode indicar distúrbios do sono graves.';
+            }
+
+            resultBox.innerHTML = `
+                <div class="result-score">Pontuação: ${score}/24</div>
+                <div class="result-interpretation">${interpretation}</div>
+                <div class="result-recommendation">
+                    <i class="fas fa-info-circle"></i> ${recommendation}
+                    <br><br>
+                    <a href="https://wa.me/5521993901377?text=Ol%C3%A1!%20Fiz%20o%20questionário%20de%20Epworth%20e%20gostaria%20de%20agendar%20uma%20consulta."
+                        target="_blank" class="btn btn-primary" style="display: inline-block; margin-top: 10px;">
+                        <i class="fab fa-whatsapp"></i> Agendar Consulta
+                    </a>
+                </div>
+                <button class="reset-btn" onclick="resetForm('epworth')">Nova Avaliação</button>
+            `;
+
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // STOP-BANG Form Submit
+        document.getElementById('stopbang-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            let score = 0;
+
+            score += parseInt(document.querySelector('input[name="snore"]:checked').value);
+            score += parseInt(document.querySelector('input[name="tired"]:checked').value);
+            score += parseInt(document.querySelector('input[name="observed"]:checked').value);
+            score += parseInt(document.querySelector('input[name="pressure"]:checked').value);
+            score += parseInt(bmiValue.value);
+
+            const age = parseInt(document.getElementById('age').value);
+            if (age > 50) score += 1;
+
+            score += parseInt(neckValue.value);
+            score += parseInt(document.querySelector('input[name="gender"]:checked').value);
+
+            const resultBox = document.getElementById('stopbang-result');
+            resultBox.classList.remove('warning', 'danger');
+            resultBox.classList.add('show');
+
+            let interpretation = '';
+            let recommendation = '';
+
+            if (score <= 2) {
+                interpretation = '<strong>Baixo Risco de Apneia do Sono</strong><br>Você apresenta baixo risco para apneia obstrutiva do sono.';
+                recommendation = 'Mantenha hábitos saudáveis de sono. Se apresentar sintomas, procure avaliação médica.';
+            } else if (score <= 4) {
+                resultBox.classList.add('warning');
+                interpretation = '<strong>Risco Intermediário de Apneia do Sono</strong><br>Você apresenta risco moderado para apneia obstrutiva do sono.';
+                recommendation = 'Recomenda-se avaliação médica especializada e possivelmente estudo do sono (polissonografia).';
+            } else {
+                resultBox.classList.add('danger');
+                interpretation = '<strong>Alto Risco de Apneia do Sono</strong><br>Você apresenta alto risco para apneia obstrutiva do sono.';
+                recommendation = '<strong>Importante:</strong> Procure avaliação médica especializada urgentemente. Estudo do sono (polissonografia) é fortemente recomendado.';
+            }
+
+            resultBox.innerHTML = `
+                <div class="result-score">Pontuação: ${score}/8</div>
+                <div class="result-interpretation">${interpretation}</div>
+                <div class="result-recommendation">
+                    <i class="fas fa-info-circle"></i> ${recommendation}
+                    <br><br>
+                    <a href="https://wa.me/5521993901377?text=Ol%C3%A1!%20Fiz%20o%20questionário%20STOP-BANG%20e%20gostaria%20de%20agendar%20uma%20consulta."
+                        target="_blank" class="btn btn-primary" style="display: inline-block; margin-top: 10px;">
+                        <i class="fab fa-whatsapp"></i> Agendar Consulta
+                    </a>
+                </div>
+                <button class="reset-btn" onclick="resetForm('stopbang')">Nova Avaliação</button>
+            `;
+
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // NoSAS Form Submit
+        document.getElementById('nosas-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            let score = 0;
+
+            score += parseInt(document.querySelector('input[name="neck_circ"]:checked').value);
+            score += parseInt(document.querySelector('input[name="obesity"]:checked').value);
+            score += parseInt(document.querySelector('input[name="snoring"]:checked').value);
+            score += parseInt(document.querySelector('input[name="age_nosas"]:checked').value);
+            score += parseInt(document.querySelector('input[name="sex"]:checked').value);
+
+            const resultBox = document.getElementById('nosas-result');
+            resultBox.classList.remove('warning', 'danger');
+            resultBox.classList.add('show');
+
+            let interpretation = '';
+            let recommendation = '';
+
+            if (score < 8) {
+                interpretation = '<strong>Baixa Probabilidade de Apneia do Sono</strong><br>Você apresenta baixa probabilidade de apneia obstrutiva do sono.';
+                recommendation = 'Mantenha hábitos saudáveis. Se apresentar sintomas, procure avaliação médica.';
+            } else {
+                resultBox.classList.add('danger');
+                interpretation = '<strong>Alta Probabilidade de Apneia do Sono</strong><br>Você apresenta alta probabilidade de apneia obstrutiva do sono.';
+                recommendation = '<strong>Importante:</strong> Procure avaliação médica especializada. Estudo do sono (polissonografia) é recomendado.';
+            }
+
+            resultBox.innerHTML = `
+                <div class="result-score">Pontuação: ${score}/17</div>
+                <div class="result-interpretation">${interpretation}</div>
+                <div class="result-recommendation">
+                    <i class="fas fa-info-circle"></i> ${recommendation}
+                    <br><br>
+                    <a href="https://wa.me/5521993901377?text=Ol%C3%A1!%20Fiz%20o%20questionário%20NoSAS%20e%20gostaria%20de%20agendar%20uma%20consulta."
+                        target="_blank" class="btn btn-primary" style="display: inline-block; margin-top: 10px;">
+                        <i class="fab fa-whatsapp"></i> Agendar Consulta
+                    </a>
+                </div>
+                <button class="reset-btn" onclick="resetForm('nosas')">Nova Avaliação</button>
+            `;
+
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // Reset form function
+        function resetForm(formName) {
+            document.getElementById(`${formName}-form`).reset();
+            document.getElementById(`${formName}-result`).classList.remove('show');
+            if (formName === 'stopbang') {
+                bmiDisplay.textContent = '';
+                neckInput.disabled = false;
+            }
+        }
     </script>
 </body>
 

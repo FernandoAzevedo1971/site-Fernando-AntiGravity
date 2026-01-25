@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhamento e Parecer Especializado em Hospitais | Dr. Fernando Azevedo</title>
+    <meta name="description"
+        content="Acompanhamento intra-hospitalar e pareceres especializados em Pneumologia. Assistência médica personalizada nos hospitais da Zona Sul do Rio de Janeiro.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .page-header {
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, #1e5a7d 0%, #2d7ba6 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+        }
+
+        .content-section {
+            padding: 60px 0;
+        }
+
+        .intro-section {
+            max-width: 900px;
+            margin: 0 auto 60px;
+        }
+
+        .intro-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .intro-section p {
+            line-height: 1.9;
+            margin-bottom: 20px;
+            text-align: justify;
+            font-size: 1.05rem;
+        }
+
+        .content-block {
+            margin-bottom: 50px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .content-block:last-of-type {
+            border-bottom: none;
+        }
+
+        .content-block h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+        }
+
+        .content-block p {
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f4f8 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .highlight-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #999;
+            box-shadow: var(--shadow-sm);
+            border: 2px dashed #ccc;
+            margin: 30px 0;
+        }
+
+        .image-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #bbb;
+        }
+
+        .image-placeholder span {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #1e5a7d 0%, #2d7ba6 100%);
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+
+            .intro-section p,
+            .content-block p {
+                text-align: left;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="./assets/logo_1.png" alt="Dr. Fernando Azevedo Logo">
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="index.html#sobre" class="nav-link">Sobre</a>
+                <a href="index.html#servicos" class="nav-link">Áreas de Atuação</a>
+                <a href="index.html#contato" class="nav-link">Contato</a>
+                <a href="https://wa.me/5521993901377" target="_blank" class="btn btn-primary">Agendar Consulta</a>
+            </nav>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="hero-title" style="font-size: 2.5rem;">Acompanhamento e Parecer Especializado em Hospitais</h1>
+            <p class="hero-subtitle">A Segurança da Continuidade do Cuidado</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section">
+        <div class="container">
+            <div class="intro-section">
+                <p>A internação hospitalar é um momento crítico que exige mais do que a aplicação de protocolos
+                    institucionais; requer a continuidade de um cuidado médico integral, vigilante e altamente
+                    qualificado. Neste cenário, a atuação do Pneumologista e Clínico como médico assistente torna-se o
+                    elo fundamental entre a excelência técnica e o acolhimento do paciente.</p>
+
+                <p>Assumir a condição de médico assistente significa liderar a equipe multidisciplinar do hospital,
+                    assegurando que o manejo da doença aguda esteja rigorosamente alinhado ao histórico clínico, às
+                    comorbidades e às particularidades biológicas do paciente.</p>
+            </div>
+
+            <div class="image-placeholder">
+                <i class="fas fa-hospital"></i>
+                <span>Ilustração: Acompanhamento Hospitalar será adicionada</span>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-user-md"></i> Visão Personalizada e Manejo de Alta Complexidade</h3>
+                <p>A presença de um especialista no acompanhamento intra-hospitalar confere um nível superior de
+                    precisão diagnóstica e eficácia terapêutica. Diferente do atendimento focado no plantão emergencial,
+                    o acompanhamento personalizado garante a reavaliação contínua da evolução clínica.</p>
+
+                <p>Seja conduzindo a internação primária ou atuando através de pareceres técnicos especializados para a
+                    resolução de quadros respiratórios ou clínicos complexos, o objetivo é abreviar o tempo de
+                    permanência no hospital, mitigar riscos de infecção secundária e otimizar o desfecho clínico.</p>
+
+                <p>Esta abordagem devolve a tranquilidade ao paciente e à família, garantindo uma comunicação clara,
+                    técnica e transparente.</p>
+            </div>
+
+            <div class="content-block">
+                <h3><i class="fas fa-map-marker-alt"></i> Presença e Atuação na Zona Sul do Rio de Janeiro</h3>
+                <p>Para assegurar a excelência deste suporte nos momentos de maior vulnerabilidade, a prestação de
+                    serviços abrange a realização de <strong>visitas diárias</strong>, <strong>emissões de pareceres
+                        especializados</strong> e o <strong>acompanhamento longitudinal</strong> nos hospitais da Zona
+                    Sul do Rio de Janeiro.</p>
+
+                <p>O atendimento está disponível em todas as redes hospitalares da região, garantindo que o paciente
+                    receba o padrão ouro de cuidado médico, com a tecnologia e a infraestrutura das melhores
+                    instituições, sem abrir mão da segurança e do discernimento clínico do seu médico de confiança.</p>
+            </div>
+
+            <div class="highlight-box">
+                <h3><i class="fas fa-shield-alt"></i> Continuidade e Excelência no Cuidado</h3>
+                <p>O acompanhamento hospitalar especializado oferece:</p>
+                <ul style="margin-top: 15px; line-height: 1.8;">
+                    <li><strong>Visitas diárias</strong> durante toda a internação</li>
+                    <li><strong>Pareceres especializados</strong> para casos complexos</li>
+                    <li><strong>Coordenação da equipe multidisciplinar</strong></li>
+                    <li><strong>Comunicação transparente</strong> com paciente e família</li>
+                    <li><strong>Disponibilidade</strong> em hospitais da Zona Sul do Rio de Janeiro</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h3>Solicite Acompanhamento Hospitalar</h3>
+            <p>Assistência médica especializada durante sua internação</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/5521993901377?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20acompanhamento%20hospitalar%20com%20Dr.%20Fernando%20Azevedo."
+                    target="_blank" class="btn btn-secondary">
+                    <i class="fab fa-whatsapp"></i> SOLICITAR ACOMPANHAMENTO
+                </a>
+                <a href="sobre-o-medico.html" class="btn btn-primary"
+                    style="background: white; color: var(--primary-color);">
+                    <i class="fas fa-user-md"></i> CONHEÇA O DR. FERNANDO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <img src="./assets/logo_1.png" alt="Dr. Fernando Azevedo" style="filter: brightness(0) invert(1);">
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Início</a>
+                <a href="index.html#sobre">Sobre</a>
+                <a href="index.html#servicos">Serviços</a>
+                <a href="index.html#contato">Contato</a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/drfernandoazevedopneumosono" target="_blank"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="https://share.google/49OhabLMeeRtbKcHp" target="_blank" title="Avalie no Google"><i
+                        class="fab fa-google"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Dr. Fernando Azevedo. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('.nav');
+
+        mobileBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+
+</html>
