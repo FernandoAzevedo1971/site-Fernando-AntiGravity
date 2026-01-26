@@ -22,7 +22,9 @@ load_dotenv(override=True)
 print("DEBUG: Environment loaded")
 
 # Configuration
-WATCH_DIRECTORY = r"C:\Users\ferna\OneDrive\Documentos\Gravacoes Som Audio Recorder Free"
+# Allow WATCH_DIRECTORY to be configured via .env file
+# Default fallback is the developer's path
+WATCH_DIRECTORY = os.getenv("WATCH_DIRECTORY", r"C:\Users\ferna\OneDrive\Documentos\Gravacoes Som Audio Recorder Free")
 print(f"DEBUG: Watch directory: {WATCH_DIRECTORY}")
 
 # Fallback if directory doesn't exist (for testing)
@@ -133,37 +135,51 @@ class TranscriptionApp(Tk):
     def format_diarized_transcript(self, response):
         """Format the transcript with speaker diarization"""
         try:
+            print("DEBUG: Starting format_diarized_transcript")
             # Get the paragraphs with speaker information
             paragraphs = response.results.channels[0].alternatives[0].paragraphs
+            print(f"DEBUG: Got paragraphs: {paragraphs}")
             
             if not paragraphs or not hasattr(paragraphs, 'paragraphs'):
                 # Fallback to simple transcript if diarization not available
-                return response.results.channels[0].alternatives[0].transcript
+                print("DEBUG: No paragraphs found, using fallback transcript")
+                fallback = response.results.channels[0].alternatives[0].transcript
+                print(f"DEBUG: Fallback transcript length: {len(fallback)}")
+                return fallback
             
+            print(f"DEBUG: Processing {len(paragraphs.paragraphs)} paragraphs")
             formatted_text = ""
-            for para in paragraphs.paragraphs:
+            for idx, para in enumerate(paragraphs.paragraphs):
                 speaker = para.speaker
+                print(f"DEBUG: Paragraph {idx}, Speaker {speaker}")
                 
                 # Extract text from sentences (paragraphs don't have a direct 'text' attribute)
                 if hasattr(para, 'sentences') and para.sentences:
                     text = " ".join([s.text for s in para.sentences if hasattr(s, 'text')])
+                    print(f"DEBUG: Extracted text from {len(para.sentences)} sentences: {text[:100]}...")
                 else:
                     # Fallback: reconstruct from words if sentences are not available
                     text = "[no text available]"
+                    print("DEBUG: No sentences found in paragraph")
                 
                 # Format: "Speaker 0: [text]"
                 formatted_text += f"Speaker {int(speaker)}: {text}\n\n"
             
+            print(f"DEBUG: Final formatted text length: {len(formatted_text)}")
             return formatted_text.strip()
         
         except Exception as e:
-            print(f"Error formatting diarization: {e}")
+            print(f"ERROR in format_diarized_transcript: {e}")
             import traceback
             traceback.print_exc()
             # Fallback to simple transcript
             try:
-                return response.results.channels[0].alternatives[0].transcript
-            except:
+                fallback = response.results.channels[0].alternatives[0].transcript
+                print(f"DEBUG: Using fallback transcript, length: {len(fallback)}")
+                return fallback
+            except Exception as e2:
+                print(f"ERROR: Even fallback failed: {e2}")
+                traceback.print_exc()
                 return "Erro ao processar transcrição"
     
     def process_file_thread(self, filepath):
@@ -193,10 +209,14 @@ class TranscriptionApp(Tk):
             }
 
             # Use self.deepgram client - pass raw bytes directly
+            print(f"DEBUG: Sending file to Deepgram API, size: {len(buffer_data)} bytes")
             response = self.deepgram.listen.v1.media.transcribe_file(request=buffer_data, **options)
+            print("DEBUG: API call successful, formatting transcript...")
             
             # Extract diarization information
             formatted_transcript = self.format_diarized_transcript(response)
+            print(f"DEBUG: Formatted transcript ready, length: {len(formatted_transcript)} chars")
+            print(f"DEBUG: First 200 chars: {formatted_transcript[:200]}")
             
             # Get audio duration from response metadata if available
             try:
@@ -210,12 +230,15 @@ class TranscriptionApp(Tk):
             self.processed_files_count += 1
             self.queue.put(("update_usage", None))
             
+            print(f"DEBUG: Sending transcription to queue...")
             self.queue.put(("transcription", formatted_transcript))
             self.queue.put(("status", "Pronto! Aguardando novos arquivos..."))
 
         except Exception as e:
             error_msg = f"Erro ao transcrever: {str(e)}"
-            print(error_msg)
+            print(f"ERROR in process_file: {error_msg}")
+            import traceback
+            traceback.print_exc()
             self.queue.put(("error", error_msg))
 
     def check_queue(self):
@@ -278,10 +301,19 @@ class TranscriptionApp(Tk):
         self.status_label.configure(text=text, text_color=color)
 
     def append_text(self, text):
+        print(f"DEBUG: append_text called with text length: {len(text) if text else 0}")
+        print(f"DEBUG: Text content (first 200 chars): {text[:200] if text else 'EMPTY'}")
+        
         self.textbox.configure(state="normal")
         timestamp = datetime.datetime.now().strftime("%H:%M:%S")
         self.textbox.insert("end", f"[{timestamp}] Novo arquivo processado:\n")
-        self.textbox.insert("end", text + "\n\n" + "-"*50 + "\n\n")
+        
+        if text:
+            self.textbox.insert("end", text + "\n\n" + "-"*50 + "\n\n")
+        else:
+            self.textbox.insert("end", "[AVISO: Transcrição vazia]\n\n" + "-"*50 + "\n\n")
+            print("WARNING: Transcription text is empty!")
+        
         self.textbox.see("end")
         self.textbox.configure(state="disabled")
 
