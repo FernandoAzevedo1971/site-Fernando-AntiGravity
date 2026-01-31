@@ -3,8 +3,10 @@ import time
 import threading
 import queue
 import datetime
+import json
 from pathlib import Path
 from dotenv import load_dotenv
+from tkinter import filedialog
 
 import customtkinter as ctk
 import pyperclip
@@ -13,9 +15,8 @@ from watchdog.events import FileSystemEventHandler
 
 from tkinterdnd2 import TkinterDnD, DND_FILES
 
-from deepgram import (
-    DeepgramClient,
-)
+import httpx
+from deepgram import DeepgramClient
 
 # Load environment variables
 load_dotenv(override=True)
@@ -32,6 +33,9 @@ if not os.path.exists(WATCH_DIRECTORY):
     print(f"Warning: Directory {WATCH_DIRECTORY} does not exist. Please check the path.")
 
 DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
+
+# Configuration file to store last used directory
+CONFIG_FILE = os.path.join(os.path.expanduser("~"), ".audio_transcriber_config.json")
 
 class Tk(ctk.CTk, TkinterDnD.DnDWrapper):
     def __init__(self, *args, **kwargs):
@@ -81,6 +85,12 @@ class TranscriptionApp(Tk):
 
         self.clear_button = ctk.CTkButton(self.footer_frame, text="Limpar", fg_color="gray", command=self.clear_text)
         self.clear_button.pack(side="left", padx=10, pady=10)
+        
+        self.select_file_button = ctk.CTkButton(self.footer_frame, text="Selecionar Arquivo", fg_color="#0066CC", command=self.select_file)
+        self.select_file_button.pack(side="left", padx=10, pady=10)
+        
+        self.select_files_button = ctk.CTkButton(self.footer_frame, text="Selecionar Arquivos da Pasta", fg_color="#0066CC", command=self.select_multiple_files)
+        self.select_files_button.pack(side="left", padx=10, pady=10)
 
         # Queue for thread communication
         self.queue = queue.Queue()
@@ -88,13 +98,26 @@ class TranscriptionApp(Tk):
         # Usage tracking
         self.processed_files_count = 0
         self.total_audio_minutes = 0.0
+        
+        # Load last used directory
+        self.last_directory = self.load_last_directory()
 
         # Drag and Drop Setup
         self.drop_target_register(DND_FILES)
         self.dnd_bind('<<Drop>>', self.on_drop)
         
-        # Deepgram Client
-        self.deepgram = DeepgramClient(api_key=DEEPGRAM_API_KEY)
+        # Deepgram Client with extended timeout for large files
+        # Default is 60 seconds, but large files (100+ MB) need more time for upload
+        # Custom timeouts: 15 min for write (upload), 10 min for read (processing)
+        # This allows files up to 200MB to be uploaded and processed
+        timeout_config = httpx.Timeout(
+            timeout=600.0,      # Total timeout: 10 minutes
+            connect=30.0,       # Connection timeout: 30 seconds
+            read=600.0,         # Read timeout: 10 minutes
+            write=900.0,        # Write timeout: 15 minutes (for large file uploads)
+            pool=None
+        )
+        self.deepgram = DeepgramClient(api_key=DEEPGRAM_API_KEY, timeout=timeout_config)
 
         # Start checking queue
         self.after(100, self.check_queue)
@@ -234,8 +257,25 @@ class TranscriptionApp(Tk):
             self.queue.put(("transcription", formatted_transcript))
             self.queue.put(("status", "Pronto! Aguardando novos arquivos..."))
 
+        except TimeoutError as e:
+            error_msg = f"Timeout ao processar {filename}. Arquivo muito grande? Tente novamente."
+            print(f"TIMEOUT ERROR in process_file: {error_msg}")
+            import traceback
+            traceback.print_exc()
+            self.queue.put(("error", error_msg))
         except Exception as e:
-            error_msg = f"Erro ao transcrever: {str(e)}"
+            error_type = type(e).__name__
+            
+            # More specific error messages
+            if "timeout" in str(e).lower() or "timed out" in str(e).lower():
+                error_msg = f"Timeout ao processar {filename}. O arquivo pode ser muito grande (tamanho: {len(buffer_data) / (1024*1024):.1f}MB). Tente com um arquivo menor."
+            elif "unauthorized" in str(e).lower() or "401" in str(e):
+                error_msg = f"Erro de autenticação. Verifique sua API key do Deepgram."
+            elif "network" in str(e).lower() or "connection" in str(e).lower():
+                error_msg = f"Erro de conexão. Verifique sua internet."
+            else:
+                error_msg = f"Erro ao transcrever ({error_type}): {str(e)}"
+            
             print(f"ERROR in process_file: {error_msg}")
             import traceback
             traceback.print_exc()
@@ -328,6 +368,80 @@ class TranscriptionApp(Tk):
         original_text = self.copy_button.cget("text")
         self.copy_button.configure(text="Copiado!")
         self.after(2000, lambda: self.copy_button.configure(text=original_text))
+    
+    def load_last_directory(self):
+        """Load the last used directory from config file"""
+        try:
+            if os.path.exists(CONFIG_FILE):
+                with open(CONFIG_FILE, 'r') as f:
+                    config = json.load(f)
+                    return config.get('last_directory', os.path.expanduser('~'))
+        except Exception as e:
+            print(f"Error loading config: {e}")
+        return os.path.expanduser('~')
+    
+    def save_last_directory(self, directory):
+        """Save the last used directory to config file"""
+        try:
+            config = {}
+            if os.path.exists(CONFIG_FILE):
+                with open(CONFIG_FILE, 'r') as f:
+                    config = json.load(f)
+            
+            config['last_directory'] = directory
+            
+            with open(CONFIG_FILE, 'w') as f:
+                json.dump(config, f)
+        except Exception as e:
+            print(f"Error saving config: {e}")
+    
+    def select_file(self):
+        """Open file dialog to select an audio file"""
+        filetypes = [
+            ("Arquivos de Áudio", "*.mp3 *.wav *.m4a *.flac *.ogg"),
+            ("Todos os arquivos", "*.*")
+        ]
+        
+        filepath = filedialog.askopenfilename(
+            title="Selecione um arquivo de áudio",
+            initialdir=self.last_directory,
+            filetypes=filetypes
+        )
+        
+        if filepath:
+            # Save the directory for next time
+            directory = os.path.dirname(filepath)
+            self.last_directory = directory
+            self.save_last_directory(directory)
+            
+            # Process the selected file
+            print(f"DEBUG: File selected: {filepath}")
+            self.process_file_thread(filepath)
+    
+    def select_multiple_files(self):
+        """Open file dialog to select multiple audio files"""
+        filetypes = [
+            ("Arquivos de Áudio", "*.mp3 *.wav *.m4a *.flac *.ogg"),
+            ("Todos os arquivos", "*.*")
+        ]
+        
+        filepaths = filedialog.askopenfilenames(
+            title="Selecione arquivos de áudio",
+            initialdir=self.last_directory,
+            filetypes=filetypes
+        )
+        
+        if filepaths:
+            # Save the directory for next time
+            directory = os.path.dirname(filepaths[0])
+            self.last_directory = directory
+            self.save_last_directory(directory)
+            
+            # Process all selected files
+            print(f"DEBUG: {len(filepaths)} file(s) selected")
+            for filepath in filepaths:
+                print(f"DEBUG: Processing file: {filepath}")
+                self.process_file_thread(filepath)
 
 class AudioFileHandler(FileSystemEventHandler):
     def __init__(self, queue_ref, process_callback):
