@@ -91,11 +91,11 @@ h4 {
 
 .btn {
     display: inline-block;
-    padding: 12px 24px;
+    padding: 10px 20px;
     border-radius: 30px;
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     cursor: pointer;
     border: none;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -221,6 +221,7 @@ h4 {
 .hero {
     position: relative;
     height: auto;
+    min-height: 100vh;
     padding: 0;
     display: flex;
     align-items: center;
@@ -250,6 +251,7 @@ h4 {
     top: 0;
     left: 0;
     opacity: 0.9;
+    transform: scale(1.15);
 }
 
 .video-overlay {
