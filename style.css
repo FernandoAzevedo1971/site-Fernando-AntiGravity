@@ -220,8 +220,8 @@ h4 {
 /* Hero Section */
 .hero {
     position: relative;
-    min-height: 600px;
-    padding: 80px 0;
+    height: auto;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -266,6 +266,7 @@ h4 {
     position: relative;
     z-index: 3;
     max-width: 900px;
+    padding: 80px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;

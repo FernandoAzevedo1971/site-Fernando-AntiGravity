@@ -218,6 +218,92 @@
             font-size: 0.9rem;
             margin-left: 10px;
         }
+
+        /* Diseases Section Styles */
+        .diseases-section {
+            padding: 60px 0;
+            background-color: var(--bg-light);
+        }
+
+        .diseases-section h3 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+
+        .diseases-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .disease-item-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .disease-item {
+            padding: 2rem 1.5rem;
+            background: white;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid transparent;
+        }
+
+        .disease-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .disease-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .disease-item h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 900px) {
+            .diseases-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .diseases-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.2rem;
+            }
+
+            .disease-icon {
+                font-size: 2rem;
+            }
+
+            .disease-item {
+                padding: 1.5rem 1rem;
+            }
+
+            .disease-item h4 {
+                font-size: 0.9rem;
+            }
+
+            .diseases-section h3 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 
@@ -241,6 +327,15 @@
             </button>
         </div>
     </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="container breadcrumb-container">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current">Pneumologia</span>
+        </div>
+    </nav>
 
     <!-- Page Header -->
     <section class="page-header">
@@ -402,6 +497,70 @@
         </div>
     </section>
 
+    <!-- Diseases Information Section -->
+    <section class="diseases-section">
+        <div class="container">
+            <h3>Saiba Mais Sobre as Principais Doenças Pulmonares</h3>
+            <div class="diseases-grid">
+                <!-- Asma -->
+                <a href="#" class="disease-item-link">
+                    <div class="disease-item">
+                        <i class="fas fa-wind disease-icon"></i>
+                        <h4>Asma</h4>
+                    </div>
+                </a>
+
+                <!-- DPOC -->
+                <a href="#" class="disease-item-link">
+                    <div class="disease-item">
+                        <i class="fas fa-lungs disease-icon"></i>
+                        <h4>DPOC</h4>
+                    </div>
+                </a>
+
+                <!-- Fibrose Pulmonar -->
+                <a href="#" class="disease-item-link">
+                    <div class="disease-item">
+                        <i class="fas fa-microscope disease-icon"></i>
+                        <h4>Fibrose Pulmonar e Doenças Intersticiais</h4>
+                    </div>
+                </a>
+
+                <!-- Doenças das VAS -->
+                <a href="#" class="disease-item-link">
+                    <div class="disease-item">
+                        <i class="fas fa-head-side-virus disease-icon"></i>
+                        <h4>Doenças das VAS (Rinite / Sinusite)</h4>
+                    </div>
+                </a>
+
+                <!-- Pneumonia -->
+                <a href="#" class="disease-item-link">
+                    <div class="disease-item">
+                        <i class="fas fa-virus disease-icon"></i>
+                        <h4>Pneumonia e outras doenças infecciosas</h4>
+                    </div>
+                </a>
+
+                <!-- Nódulo Pulmonar -->
+                <a href="#" class="disease-item-link">
+                    <div class="disease-item">
+                        <i class="fas fa-circle-dot disease-icon"></i>
+                        <h4>Nódulo Pulmonar</h4>
+                    </div>
+                </a>
+
+                <!-- Doenças Respiratórias do Sono -->
+                <a href="medicina-do-sono.html" class="disease-item-link">
+                    <div class="disease-item">
+                        <i class="fas fa-moon disease-icon"></i>
+                        <h4>Doenças Respiratórias do Sono</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container footer-content">
@@ -447,6 +606,12 @@
             }
         });
     </script>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/5521993901377?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Pneumologia%20com%20o%20Dr.%20Fernando%20Azevedo"
+        class="whatsapp-float" target="_blank" aria-label="Agendar consulta de Pneumologia via WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 </body>
 
 </html>
