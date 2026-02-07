@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bronquiectasias: Diagnóstico, Manejo e Prognóstico | Dr. Fernando Azevedo</title>
+    <meta name="description"
+        content="Informações completas sobre bronquiectasias: definição, causas, diagnóstico, tratamento e prognóstico.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .page-header {
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, #1e5a7d 0%, #2d7ba6 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+        }
+
+        .content-section {
+            padding: 60px 0;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .content-wrapper h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .content-wrapper h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .content-wrapper p {
+            line-height: 1.9;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f4f8 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #999;
+            margin: 30px 0;
+            box-shadow: var(--shadow-sm);
+            border: 2px dashed #ccc;
+        }
+
+        .image-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            color: #bbb;
+        }
+
+        .external-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .external-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .external-link i {
+            margin-right: 8px;
+        }
+
+        /* BSI Calculator Styles */
+        .bsi-calculator {
+            max-width: 100%;
+            margin: 30px 0;
+            padding: 25px;
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            background-color: #ffffff;
+        }
+
+        .bsi-calculator h4 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: white;
+        }
+
+        .obs {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+            text-indent: 0;
+        }
+
+        .calc-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .calc-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        #result-box {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+            font-size: 1.1rem;
+        }
+
+        .low-risk {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .mod-risk {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffeeba;
+        }
+
+        .high-risk {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper p {
+                text-align: left;
+            }
+
+            .image-placeholder {
+                height: 300px;
+            }
+
+            .bsi-calculator {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="./assets/logo_1.png" alt="Dr. Fernando Azevedo Logo">
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="index.html#sobre" class="nav-link">Sobre</a>
+                <a href="index.html#servicos" class="nav-link">Áreas de Atuação</a>
+                <a href="index.html#contato" class="nav-link">Contato</a>
+                <a href="https://wa.me/5521993901377" target="_blank" class="btn btn-primary">Agendar Consulta</a>
+            </nav>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="container breadcrumb-container">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <a href="pneumologia.html">Pneumologia</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current">Bronquiectasias</span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Bronquiectasias</h1>
+            <p>Diagnóstico, Manejo Clínico e Prognóstico</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section">
+        <div class="container">
+            <div class="content-wrapper">
+
+                <h2>Definição e Fisiopatologia</h2>
+                <p>As bronquiectasias caracterizam-se pela dilatação anormal e irreversível dos brônquios, decorrente de
+                    processos inflamatórios crônicos que destroem os componentes elástico e muscular da parede
+                    brônquica. A doença se estabelece através de um mecanismo conhecido como "ciclo vicioso de Cole",
+                    onde uma agressão inicial prejudica o clearance mucociliar, favorecendo a retenção de secreções e a
+                    colonização bacteriana. Essa infecção persistente gera uma resposta inflamatória secundária que
+                    provoca mais dano estrutural, perpetuando o processo e comprometendo progressivamente a função
+                    pulmonar.</p>
+
+                <div style="width: 100%; margin: 30px 0; text-align: center;">
+                    <img src="./assets/ciclo_vicioso_cole.png"
+                        alt="Esquema do Ciclo Vicioso de Cole: Pneumonias, Tuberculose, Infecções bacterianas, Inflamações nas vias aéreas, Dano estrutural, Ineficiência do clearance"
+                        style="max-width: 100%; height: auto; border-radius: 15px; box-shadow: var(--shadow-sm); display: inline-block;">
+                    <p style="font-size: 0.9rem; color: #666; margin-top: 10px; font-style: italic;">Esquema ilustrativo
+                        do Ciclo Vicioso de Cole</p>
+                </div>
+
+                <h2>Etiologia e Fatores de Risco</h2>
+                <p>A identificação da causa base é fundamental para o manejo, embora em uma parcela significativa dos
+                    casos a etiologia permaneça idiopática. No Brasil, as sequelas pós-infecciosas, particularmente
+                    decorrentes de tuberculose prévia ou pneumonias graves na infância, representam uma etiologia
+                    prevalente. Outras causas relevantes incluem a Fibrose Cística, discinesia ciliar primária,
+                    imunodeficiências (como a imunodeficiência comum variável), aspergilose broncopulmonar alérgica
+                    (ABPA) e doenças autoimunes sistêmicas, como a artrite reumatoide. A investigação etiológica deve
+                    ser exaustiva para permitir terapias específicas quando aplicável.</p>
+
+                <h2>Quadro Clínico e Diagnóstico</h2>
+                <p>A apresentação clínica clássica consiste em tosse crônica produtiva, com expectoração diária que pode
+                    ser mucopurulenta ou purulenta, frequentemente associada a episódios de exacerbação infecciosa.
+                    Hemoptise, dispneia progressiva, fadiga e infecções respiratórias de repetição compõem o espectro
+                    sintomático.</p>
+
+                <div class="highlight-box">
+                    <h3><i class="fas fa-stethoscope"></i> Padrão-Ouro para Diagnóstico</h3>
+                    <p>A Tomografia Computadorizada de Alta Resolução (TCAR) do tórax é o exame confirmatório. Os
+                        achados tomográficos incluem a ausência de afilamento brônquico distal e o aumento da relação
+                        broncoarterial, visualizado como o "sinal do anel de sinete", onde o diâmetro do brônquio excede
+                        o da artéria adjacente.</p>
+                </div>
+
+                <div style="width: 100%; margin: 30px 0; text-align: center;">
+                    <img src="./assets/bronchiectasis_pt.jpg"
+                        alt="Tomografia de Alta Resolução mostrando bronquiectasias císticas e sinal do anel de sinete"
+                        style="max-width: 100%; height: auto; border-radius: 15px; box-shadow: var(--shadow-sm); display: inline-block;">
+                    <p style="font-size: 0.9rem; color: #666; margin-top: 10px; font-style: italic;">Tomografia de Alta
+                        Resolução: Bronquiectasias císticas e sinal do anel de sinete</p>
+                </div>
+
+                <p>A avaliação funcional através da espirometria é mandatória para estadiar o grau de obstrução ao fluxo
+                    aéreo.</p>
+
+                <h2>Abordagem Terapêutica</h2>
+                <p>O tratamento visa interromper o ciclo de infecção e inflamação, melhorar a qualidade de vida e
+                    prevenir exacerbações. A terapia baseia-se na fisioterapia respiratória para higiene brônquica,
+                    utilizando técnicas de desobstrução e dispositivos de oscilação oral de alta frequência.</p>
+
+                <p>O manejo farmacológico pode incluir o uso de mucolíticos, broncodilatadores em casos de obstrução
+                    reversível e, crucialmente, a antibioticoterapia. Esta é utilizada tanto para o tratamento de
+                    exacerbações agudas quanto, em casos selecionados, para a erradicação ou supressão de colonização
+                    crônica, especialmente por <em>Pseudomonas aeruginosa</em>. A vacinação contra influenza e
+                    pneumococo é parte essencial do cuidado preventivo.</p>
+
+                <h2>Prognóstico e Estratificação de Risco</h2>
+                <p>A evolução clínica das bronquiectasias é heterogênea. Para auxiliar na decisão terapêutica e estimar
+                    o risco de mortalidade e hospitalização, utilizam-se escores de gravidade validados, sendo o
+                    <strong>Bronchiectasis Severity Index (BSI)</strong> uma das ferramentas mais robustas atualmente.
+                </p>
+
+                <div class="highlight-box">
+                    <h3><i class="fas fa-calculator"></i> Bronchiectasis Severity Index (BSI)</h3>
+                    <p>Este índice integra dados clínicos, funcionais, microbiológicos e radiológicos para classificar o
+                        paciente em grupos de risco baixo, intermediário ou alto, orientando a intensidade do seguimento
+                        clínico.</p>
+
+                    <p style="margin-top: 20px;"><strong>Parâmetros avaliados:</strong></p>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li>Idade</li>
+                        <li>Índice de Massa Corporal (IMC)</li>
+                        <li>VEF1 % predito (função pulmonar)</li>
+                        <li>Hospitalizações prévias</li>
+                        <li>Número de exacerbações</li>
+                        <li>Escore de dispneia (mMRC)</li>
+                        <li>Colonização bacteriana</li>
+                        <li>Extensão radiológica</li>
+                    </ul>
+
+                    <!-- BSI Calculator Embedded -->
+                    <div class="bsi-calculator">
+                        <h4>Calculadora BSI em Português</h4>
+
+                        <div class="form-group">
+                            <label>1. Idade</label>
+                            <select id="age">
+                                <option value="0">Menor que 50 anos</option>
+                                <option value="2">50 a 69 anos</option>
+                                <option value="4">70 a 79 anos</option>
+                                <option value="6">80 anos ou mais</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>2. Índice de Massa Corporal (IMC)</label>
+                            <select id="bmi">
+                                <option value="0">Maior ou igual a 18.5 kg/m²</option>
+                                <option value="2">Menor que 18.5 kg/m² (Baixo peso)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>3. VEF1 (% do predito)</label>
+                            <select id="fev1">
+                                <option value="0">Maior que 80%</option>
+                                <option value="1">50% a 80%</option>
+                                <option value="2">30% a 49%</option>
+                                <option value="3">Menor que 30%</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>4. Hospitalização nos últimos 2 anos</label>
+                            <div class="obs">Internação hospitalar grave prévia?</div>
+                            <select id="hosp">
+                                <option value="0">Não</option>
+                                <option value="5">Sim</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>5. Exacerbações nos últimos 12 meses</label>
+                            <select id="exac">
+                                <option value="0">0 a 2 exacerbações</option>
+                                <option value="2">3 ou mais exacerbações</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>6. Grau de Dispneia (mMRC)</label>
+                            <select id="mmrc">
+                                <option value="0">Grau 0-3</option>
+                                <option value="2">Grau 4 (Falta de ar ao caminhar ~100m)</option>
+                                <option value="3">Grau 5 (Impede sair de casa/vestir-se)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>7. Colonização Bacteriana Crônica</label>
+                            <select id="col">
+                                <option value="0">Não colonizado</option>
+                                <option value="1">Colonizado por outros organismos</option>
+                                <option value="3">Colonizado por Pseudomonas aeruginosa</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>8. Extensão Radiológica</label>
+                            <div class="obs">Envolvimento de 3 ou mais lobos ou bronquiectasia cística?</div>
+                            <select id="rad">
+                                <option value="0">Não (< 3 lobos)</option>
+                                <option value="1">Sim (≥ 3 lobos ou cística)</option>
+                            </select>
+                        </div>
+
+                        <button class="calc-btn" onclick="calculateBSI()">Calcular Escore BSI</button>
+
+                        <div id="result-box"></div>
+                    </div>
+
+                    <a href="https://www.bronchiectasis.id/" target="_blank" class="external-link"
+                        style="display: block; margin-top: 15px; text-align: center;">
+                        <i class="fas fa-external-link-alt"></i> Ver também: Calculadora BSI Original (em inglês)
+                    </a>
+                </div>
+
+
+
+                <div style="width: 100%; margin: 40px 0; text-align: center;">
+                    <img src="./assets/Bronchiectasis_Normal_vs_Affected_Airway.jpg"
+                        alt="Anatomia Comparativa: Brônquio saudável vs. brônquio com bronquiectasia"
+                        style="max-width: 100%; height: auto; border-radius: 15px; box-shadow: var(--shadow-sm); display: inline-block;">
+                    <p style="font-size: 0.9rem; color: #666; margin-top: 10px; font-style: italic;">Anatomia
+                        Comparativa: Brônquio saudável vs. brônquio com bronquiectasia</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 50px;">
+                    <a href="https://wa.me/5521993901377?text=Gostaria%20de%20mais%20informações%20sobre%20Bronquiectasias"
+                        target="_blank" class="btn btn-primary" style="font-size: 1.1rem;">
+                        <i class="fab fa-whatsapp"></i> AGENDAR CONSULTA
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <img src="./assets/logo_1.png" alt="Dr. Fernando Azevedo" style="filter: brightness(0) invert(1);">
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Início</a>
+                <a href="index.html#sobre">Sobre</a>
+                <a href="index.html#servicos">Serviços</a>
+                <a href="index.html#contato">Contato</a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/drfernandoazevedopneumosono" target="_blank"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Dr. Fernando Azevedo. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('.nav');
+
+        mobileBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // BSI Calculator Function
+        function calculateBSI() {
+            // Coleta dos valores
+            const age = parseInt(document.getElementById('age').value);
+            const bmi = parseInt(document.getElementById('bmi').value);
+            const fev1 = parseInt(document.getElementById('fev1').value);
+            const hosp = parseInt(document.getElementById('hosp').value);
+            const exac = parseInt(document.getElementById('exac').value);
+            const mmrc = parseInt(document.getElementById('mmrc').value);
+            const col = parseInt(document.getElementById('col').value);
+            const rad = parseInt(document.getElementById('rad').value);
+
+            // Cálculo total
+            const totalScore = age + bmi + fev1 + hosp + exac + mmrc + col + rad;
+
+            // Determinação do risco
+            let riskText = "";
+            let riskClass = "";
+            let riskDesc = "";
+
+            if (totalScore <= 4) {
+                riskText = "Baixo";
+                riskClass = "low-risk";
+                riskDesc = "Baixo risco de mortalidade e hospitalização.";
+            } else if (totalScore <= 8) {
+                riskText = "Intermediário";
+                riskClass = "mod-risk";
+                riskDesc = "Risco moderado. Acompanhamento regular recomendado.";
+            } else {
+                riskText = "Alto";
+                riskClass = "high-risk";
+                riskDesc = "Alto risco de mortalidade e hospitalização. Requer manejo intensivo.";
+            }
+
+            // Exibição do resultado
+            const resultBox = document.getElementById('result-box');
+            resultBox.style.display = 'block';
+            resultBox.className = riskClass;
+            resultBox.innerHTML = `
+                Pontuação Total: ${totalScore} / 26<br>
+                Classificação de Risco: ${riskText}<br>
+                <span style="font-weight:normal; font-size:0.95em">${riskDesc}</span>
+            `;
+
+            // Scroll suave até o resultado
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/5521993901377?text=Gostaria%20de%20mais%20informações%20sobre%20Bronquiectasias"
+        class="whatsapp-float" target="_blank" aria-label="Contato via WhatsApp sobre Bronquiectasias">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</body>
+
+</html>

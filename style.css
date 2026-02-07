@@ -91,7 +91,7 @@ h4 {
 
 .btn {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 10px 12px;
     border-radius: 30px;
     font-weight: 600;
     text-transform: uppercase;
@@ -337,13 +337,15 @@ h4 {
 }
 
 .service-item {
-    padding: 3rem 2.5rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--primary-color);
+    padding: 2rem 2rem;
     border-radius: 20px;
-    background: linear-gradient(to bottom, #FFFFFF 0%, var(--bg-light) 100%);
-    box-shadow: var(--shadow-sm);
-    border-top: 4px solid var(--accent-color);
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
     position: relative;
+    border-top: 4px solid var(--accent-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     overflow: hidden;
 }
 
@@ -354,7 +356,7 @@ h4 {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(42, 157, 143, 0.03) 0%, rgba(30, 95, 116, 0.03) 100%);
+    background: linear-gradient(135deg, rgba(42, 157, 143, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
     z-index: 0;
@@ -365,15 +367,16 @@ h4 {
 }
 
 .service-item:hover {
-    box-shadow: var(--shadow-lg);
     transform: translateY(-10px);
-    border-top-color: var(--secondary-color);
+    box-shadow: var(--shadow-lg);
+    border-top-color: var(--accent-color);
+    background: var(--secondary-color);
 }
 
 .service-icon {
-    font-size: 3rem;
-    color: var(--secondary-color);
-    margin-bottom: 1.5rem;
+    font-size: 4rem;
+    color: #FFFFFF;
+    margin-bottom: 1rem;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     z-index: 1;
@@ -381,14 +384,14 @@ h4 {
 
 .service-item:hover .service-icon {
     transform: scale(1.15);
-    color: var(--primary-color);
+    color: #FFFFFF;
 }
 
 .service-item h3 {
     font-size: 1.15rem;
+    margin-top: 1.5rem;
+    color: #FFFFFF;
     font-weight: 600;
-    margin-bottom: 0;
-    color: var(--text-dark);
     position: relative;
     z-index: 1;
     transition: color 0.3s ease;
@@ -430,12 +433,13 @@ h4 {
 }
 
 .about-text .section-tag {
-    color: var(--secondary-color);
-    font-size: 0.95rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    font-family: 'Allura', cursive;
+    color: var(--accent-color);
+    font-size: 4rem;
+    letter-spacing: 1px;
+    text-transform: none;
     margin-bottom: 0.5rem;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .about-text .section-title {
@@ -519,6 +523,13 @@ h4 {
     border-radius: 10px;
     box-shadow: var(--shadow-sm);
 }
+
+p {
+    text-align: justify;
+    line-height: 1.8;
+}
+
+/* Buttons */
 
 /* Footer */
 .footer {
