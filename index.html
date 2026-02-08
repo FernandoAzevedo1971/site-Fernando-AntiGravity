@@ -16,12 +16,14 @@
         rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=9">
 
     <!-- Icons -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <!-- Note: This might need a valid kit or switch to SVG icons directly if key is issue. Using CDN for FontAwesome Free for now or SVG inlines -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -67,7 +69,7 @@
         <div class="container services-grid">
             <a href="pneumologia.html" class="service-item-link">
                 <div class="service-box">
-                    <i class="fas fa-lungs service-icon"></i>
+                    <i class="bi bi-lungs-fill service-icon"></i>
                 </div>
                 <h3>Pneumologia</h3>
             </a>
@@ -79,7 +81,7 @@
             </a>
             <a href="polissonografia.html" class="service-item-link">
                 <div class="service-box">
-                    <i class="fas fa-wave-square service-icon"></i>
+                    <i class="fas fa-procedures service-icon"></i>
                 </div>
                 <h3>Polissonografia tipo 3</h3>
             </a>
@@ -100,6 +102,12 @@
                     <i class="fas fa-calendar-check service-icon"></i>
                 </div>
                 <h3>Visitas em Hospitais</h3>
+            </a>
+            <a href="https://preconsulta.drfernandoazevedo.com.br" target="_blank" class="service-item-link">
+                <div class="service-box">
+                    <i class="fas fa-file-medical service-icon"></i>
+                </div>
+                <h3>Pré-Consulta Online</h3>
             </a>
         </div>
     </section>
@@ -194,6 +202,77 @@
         </div>
     </section>
 
+    <!-- Contact Form Section -->
+    <section id="form-contato" class="contact-form-section">
+        <div class="container form-container">
+            <h2 class="section-title text-center">Envie uma Mensagem</h2>
+            <p class="section-subtitle text-center">Preencha o formulário abaixo e entraremos em contato.</p>
+
+            <form id="contactForm" class="contact-form" action="https://formspree.io/f/mdalovqe" method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome Completo *</label>
+                    <input type="text" id="nome" name="nome" required placeholder="Seu nome completo">
+                </div>
+
+                <div class="form-row email-idade">
+                    <div class="form-group">
+                        <label for="email">E-mail *</label>
+                        <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="idade">Idade</label>
+                        <input type="number" id="idade" name="idade" min="0" max="120" placeholder="Sua idade">
+                    </div>
+                </div>
+
+                <div class="form-row tel-assunto">
+                    <div class="form-group">
+                        <label for="telefone">Telefone Celular</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX" maxlength="15">
+                    </div>
+                    <div class="form-group">
+                        <label for="assunto">Assunto *</label>
+                        <select id="assunto" name="assunto" required>
+                            <option value="">Selecione um assunto</option>
+                            <option value="Agendar consulta ou exames">Agendar consulta ou exames</option>
+                            <option value="Dúvidas sobre exames ou procedimentos">Dúvidas sobre exames ou procedimentos
+                            </option>
+                            <option value="Dúvidas em geral">Dúvidas em geral</option>
+                            <option value="Outros assuntos">Outros assuntos</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensagem">Mensagem</label>
+                    <textarea id="mensagem" name="mensagem" rows="5"
+                        placeholder="Digite sua mensagem aqui..."></textarea>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="lgpd" name="lgpd" required>
+                    <label for="lgpd">Concordo com a política de privacidade e uso dos dados para contato.</label>
+                </div>
+
+                <div class="form-submit">
+                    <button type="submit" class="btn btn-primary btn-submit">Enviar Mensagem</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Obrigado pelo contato!</h3>
+            <p>Recebemos sua mensagem e responderemos o mais breve possível.</p>
+            <button id="closeModalBtn" class="btn btn-secondary">Fechar</button>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container footer-content">
@@ -209,7 +288,7 @@
             <div class="social-links">
                 <a href="https://www.instagram.com/drfernandoazevedopneumosono" target="_blank"><i
                         class="fab fa-instagram"></i></a>
-                <a href="https://share.google/49OhabLMeeRtbKcHp" target="_blank" title="Avalie no Google"><i
+                <a href="https://g.page/r/Cfh4kGbn8mHpEBM/review" target="_blank" title="Avalie no Google"><i
                         class="fab fa-google"></i></a>
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -237,6 +316,69 @@
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
+            }
+        });
+        // Validar e formatar telefone, Submit e Modal
+        const contactForm = document.getElementById('contactForm');
+        const phoneInput = document.getElementById('telefone');
+        const modal = document.getElementById('successModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        // Máscara de Telefone
+        phoneInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+
+            if (value.length > 2) {
+                value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+            }
+            if (value.length > 10) {
+                value = `${value.slice(0, 10)}-${value.slice(10)}`;
+            } else if (value.length > 6) { // Ajuste para formato (XX) XXXX-XXXX enquanto digita
+                // value = `${value.slice(0, 9)}-${value.slice(9)}`; // Simples
+            }
+            e.target.value = value;
+        });
+
+        // Envio do Formulário via Formspree (AJAX)
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(contactForm);
+
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Sucesso - exibe modal
+                    modal.classList.add('active');
+                } else {
+                    // Erro do Formspree
+                    alert('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.');
+                }
+            } catch (error) {
+                // Erro de rede
+                alert('Erro de conexão. Verifique sua internet e tente novamente.');
+            }
+        });
+
+        // Fechar Modal
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            contactForm.reset();
+        });
+
+        // Fechar clicando fora
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                contactForm.reset();
             }
         });
     </script>
